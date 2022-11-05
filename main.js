@@ -1,4 +1,4 @@
-//console.log("vamsi");
+
 const loginform=document.getElementById("login_form");
 
 if(loginform) loginform.addEventListener('submit',create_u);
@@ -33,13 +33,16 @@ function create_u(e){
         setPassword(passcode_parameter){
             this.password=passcode_parameter;
         }
-
-
     }
 
     const user1=new User(username,password);
  
     console.log(user1);
+
+    let u=document.getElementById("uname/email");
+    u.value="";
+    let p=document.getElementById("pass");
+    p.value="";
 }
 
 const registerform=document.getElementById("register_form");
@@ -100,6 +103,15 @@ function create_r(e){
 
     console.log(register1);
 
+    let f=document.getElementById("fname");
+    f.value="";
+    let l=document.getElementById("lname");
+    l.value="";
+    let u=document.getElementById("uname/email");
+    u.value="";
+    let p=document.getElementById("pass");
+    p.value="";
+
 }
 
 const noteform=document.getElementById("note_form");
@@ -132,4 +144,7 @@ function create_n(e){
 
     const note1=new Note(note);
     console.log(note1);
+
+    let n=document.getElementById("note_id");
+    n.value="";
 }
