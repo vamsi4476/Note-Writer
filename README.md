@@ -7,3 +7,4 @@ If a user has registered he/she can login into the page and add a notes.
 
 ### ER-DIAGRAM
 
+![The San Juan Mountains are beautiful!](/images/ER_diagram.png "ER DIAGRAM")
