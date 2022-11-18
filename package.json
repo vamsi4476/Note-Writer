@@ -1,0 +1,26 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "web application to login,regin and write a note",
+  "main": "main.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vamsi4476/web-project.git"
+  },
+  "author": "vamsi Krishna Gunda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vamsi4476/web-project/issues"
+  },
+  "homepage": "https://github.com/vamsi4476/web-project#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
