@@ -1,27 +1,30 @@
+//require('dotenv').config();
 const express=require('express');
-const app=express();
+const app=express();       // To start the app we need this.
 
-const userRoutes=require("./server/routes/user");
-const noteRoutes=require("./server/routes/note");
+const userRoutes=require('./server/routes/user');
+const noteRoutes=require('./server/routes/note');
 
-
-const PORT=process.env.PORT || 3000;
-
-app.listen(PORT, ()=>console.log(`Server started on poort ${PORT}!`));
+app.use(express.json());
 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");  
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");  
-    next();
-  });
+  res.header("Access-Control-Allow-Origin", "*");  
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");  
+  next();
+});
 
   app.use("/users", userRoutes);
   app.use("/notes",noteRoutes);
 
+  
+const PORT=process.env.PORT || 3000;
 
-  app.get('*',function(req,res){
-    res.sendFile(path.resolve(_dirname,'public','note.html'));
-  });
+app.listen(PORT, ()=>console.log(`Server started on port ${PORT}!`));
+
+
+  // app.get('*',function(req,res){
+  //   res.sendFile(path.resolve(_dirname,'public','note.html'));
+  // });
 
 
