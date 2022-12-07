@@ -26,10 +26,12 @@ async function getAllNotes() {
 
     let cNote=await getNote(note);
 
-    const sql=`INSERT INTO notes(note,userID) VALUES ("${note.note}",${user.userID});`
+    const sql=`INSERT INTO notes(note,userID) VALUES ("${note.note}",${note.userID});`
     //const sql=`INSERT INTO notes(note) VALUES ("${note.note}");`
 
     await con.query(sql);
+    return cNote[0];
+    
 }
 
   async function editNote(note){
@@ -45,6 +47,7 @@ async function deleteNote(note){
     let sql=`Delete from notes where noteID=${note.noteID}`;
 
     await con.query(sql);
+
 }
 
 async function getNote(note){
