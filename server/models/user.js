@@ -104,4 +104,4 @@ function getUsers(){
 
 // };
 
-module.exports={getAllUsers,login,register,editUser,deleteUser};
+module.exports={getAllUsers,login,register,editUser,deleteUser,};

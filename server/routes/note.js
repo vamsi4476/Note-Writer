@@ -1,5 +1,6 @@
 const express=require('express');
 const Note=require('../models/note');
+const User=require('../models/user');
 const router=express.Router();
 
 router.get('/',async (req,res)=>{

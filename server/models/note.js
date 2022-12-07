@@ -3,15 +3,17 @@ const con=require("./db_connect");                // we need this file because w
 async function createTable(){
     let sql=`CREATE TABLE if not exists notes(
         noteID INT NOT NULL AUTO_INCREMENT,
-        note VARCHAR(100) NOT NULL UNIQUE,
+        note VARCHAR(255) NOT NULL UNIQUE,
         userID INT,
         CONSTRAINT notePK PRIMARY KEY(noteID),
         CONSTRAINT FOREIGN KEY (userID) REFERENCES users(userID)
+        
 
     );`
     await con.query(sql);                            // we need await when used async
 }
-
+//  
+//
 createTable();
 
 async function getAllNotes() {
@@ -24,12 +26,10 @@ async function getAllNotes() {
 
     let cNote=await getNote(note);
 
-
     const sql=`INSERT INTO notes(note,userID) VALUES ("${note.note}",${user.userID});`
+    //const sql=`INSERT INTO notes(note) VALUES ("${note.note}");`
 
     await con.query(sql);
-
-    
 }
 
   async function editNote(note){
@@ -42,7 +42,7 @@ async function getAllNotes() {
 }
 
 async function deleteNote(note){
-    let sql=`Delete from users where noteID=${note.noteID}`;
+    let sql=`Delete from notes where noteID=${note.noteID}`;
 
     await con.query(sql);
 }
@@ -75,4 +75,4 @@ function getNotes(){
     return notes;
 }
 
-module.exports={getAllNotes,editNote,deleteNote};
+module.exports={getAllNotes,editNote,deleteNote,createNote};
