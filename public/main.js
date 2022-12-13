@@ -140,7 +140,7 @@ function create_r(e){
 
 }
 
-
+///////////////////////////////////////////////////////////////////////
 class Note{
 
     constructor(text){
@@ -235,7 +235,7 @@ if(user && noteform) getNotes();
      })
      .catch((err)=>console.log(`Error! ${err}`));
 
-     window.location.href="note.html";
+     //window.location.href="note.html";
  }
 
  
