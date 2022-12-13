@@ -17,9 +17,10 @@ async function createTable(){
 createTable();
 
 async function getAllNotes() {
-    const sql = `SELECT * FROM notes;`;
+    const sql = `SELECT * FROM notes ;`;
     let notes = await con.query(sql);
     console.log(notes)
+    return await notes;
   }
 
   async function createNote(note){
@@ -58,24 +59,17 @@ async function getNote(note){
 
     }
     else{
-        sql=`select * from notes where note="${note.note}"`;
+        sql=`select * from notes where userID=${note.userID}`;
     }
 
     return await con.query(sql);
 }
 
 
-const notes=[{
-    noteId:1233,
-    notecontent:"Hello"
-},{
-    noteId:9383,
-    notecontent:"How r u??"
-},
-];
+
 
 function getNotes(){
     return notes;
 }
 
-module.exports={getAllNotes,editNote,deleteNote,createNote};
+module.exports={getAllNotes,editNote,deleteNote,createNote, getNote};

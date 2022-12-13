@@ -1,5 +1,29 @@
+import { fetchData, setCurrentUser, setCurrentNote,getCurrentUser, getCurrentNote, } from "./fetch.js";
+class User{
 
-const loginform=document.getElementById("login_form");
+    constructor(username,password){
+
+        this.userName=username;
+        this.password=password;
+    }
+
+    getUsername(){
+        return this.userName;
+    }
+
+    setUsername(name_parameter){
+        this.userName=name_parameter;
+    }
+
+    getPassword(){
+        return this.password;
+    }
+
+    setPassword(passcode_parameter){
+        this.password=passcode_parameter;
+    }
+}
+let loginform=document.getElementById("login_form");
 
 if(loginform) loginform.addEventListener('submit',create_u);
 
@@ -10,39 +34,70 @@ function create_u(e){
     let username=document.getElementById('uname/email').value;
     let password=document.getElementById('pass').value;
 
-    class User{
+    
+    
 
-        constructor(username,password){
-
-            this.username=username;
-            this.password=password;
-        }
-
-        getUsername(){
-            return this.username;
-        }
-
-        setUsername(name_parameter){
-            this.Username=name_parameter;
-        }
-
-        getPassword(){
-            return this.password;
-        }
-
-        setPassword(passcode_parameter){
-            this.password=passcode_parameter;
-        }
-    }
-
-    const user1=new User(username,password);
+    const user=new User(username,password);
  
-    console.log(user1);
+    console.log(user);
+
+    fetchData("/users/login", user, "POST")
+        .then((data) => {
+    setCurrentUser(data);
+    window.location.href = "note.html";
+  })
+  .catch((err) => {
+    let p = document.querySelector('.error');
+    p.innerHTML = err.message;
+  }) 
+
 
     let u=document.getElementById("uname/email");
     u.value="";
     let p=document.getElementById("pass");
     p.value="";
+}
+
+
+class Register{
+
+    constructor(firstname,lastname,username,password){
+        this.firstname=firstname;
+        this.lastname=lastname;
+        this.userName=username;
+        this.password=password;
+    }
+
+    getfirstname(){
+        return this.firstname;
+    }
+
+    setfirstname(f_name_parameter){
+        this.firstname=f_name_parameter;
+    }
+
+    getlastname(){
+        return this.lastname;
+    }
+    
+    setlastname(l_name_parameter){
+        this.lastname=l_name_parameter;
+    }
+    getUsername(){
+        return this.userName;
+    }
+
+    setUsername(name_parameter){
+        this.UserName=name_parameter;
+    }
+
+    getPassword(){
+        return this.password;
+    }
+
+    setPassword(passcode_parameter){
+        this.password=passcode_parameter;
+    }
 }
 
 const registerform=document.getElementById("register_form");
@@ -55,53 +110,24 @@ function create_r(e){
 
     let firstname=document.getElementById("fname").value;
     let lastname=document.getElementById("lname").value;
-    let username=document.getElementById("uname/email").value;
+    let userName=document.getElementById("uname/email").value;
     let password=document.getElementById("pass").value;
 
-    class Register{
+    
 
-        constructor(firstname,lastname,username,password){
-            this.firstname=firstname;
-            this.lastname=lastname;
-            this.username=username;
-            this.password=password;
-        }
+    const user=new Register(firstname,lastname,userName,password);
 
-        getfirstname(){
-            return this.firstname;
-        }
+    console.log(user);
 
-        setfirstname(f_name_parameter){
-            this.firstname=f_name_parameter;
-        }
-
-        getlastname(){
-            return this.lastname;
-        }
-        
-        setlastname(l_name_parameter){
-            this.lastname=l_name_parameter;
-        }
-        getUsername(){
-            return this.username;
-        }
-
-        setUsername(name_parameter){
-            this.Username=name_parameter;
-        }
-
-        getPassword(){
-            return this.password;
-        }
-
-        setPassword(passcode_parameter){
-            this.password=passcode_parameter;
-        }
-    }
-
-    const register1=new Register(firstname,lastname,username,password);
-
-    console.log(register1);
+    fetchData("/users/register",user , "POST")
+  .then((data) => {
+    setCurrentUser(data);
+    window.location.href = "note.html";
+  })
+  .catch((err) =>{
+    let p = document.querySelector('.error');
+    p.innerHTML = err.message;
+  })
 
     let f=document.getElementById("fname");
     f.value="";
@@ -114,6 +140,25 @@ function create_r(e){
 
 }
 
+
+class Note{
+
+    constructor(text){
+        this.note=text;
+    }
+
+    getnote(){
+        return this.note;
+
+    }
+
+    setnote(text_parameter){
+        this.note=text_parameter;
+    }
+
+
+}
+
 const noteform=document.getElementById("note_form");
 
 if(noteform) noteform.addEventListener('submit',create_n);
@@ -122,36 +167,29 @@ function create_n(e){
 
     e.preventDefault();
 
-    let note=document.getElementById("note_id").value;
+    let note1=document.getElementById("note_id").value;
 
-    class Note{
-
-        constructor(text){
-            this.note=text;
-        }
-
-        getnote(){
-            return this.note;
-
-        }
-
-        setnote(text_parameter){
-            this.note=text_parameter;
-        }
-
-
-    }
-
-    const note1=new Note(note);
-    console.log(note1);
-
-    let n=document.getElementById("note_id");
-    n.value="";
+    const note=new Note(note1);
+    console.log(note);
+    let user = getCurrentUser();
+    note.userID = user.userID;
+    fetchData("/notes/create", note , "POST")
+  .then((data) => {
+    //setCurrentUser(data);
+    console.log(data);
+    //window.location.href = "note.html";
+  })
+  .catch((err) =>{
+    let p = document.querySelector('.error');
+    p.innerHTML = err.message;
+  })
 }
 //////////////////////////////
 const usersBtn=document.getElementById("users-btn");
 
 if(usersBtn)usersBtn.addEventListener('click',getUsers);
+
+
 
 function getUsers(){
     fetch("http://localhost:3000/users/")
@@ -172,63 +210,32 @@ function getUsers(){
     .catch((err)=>console.log(`error! ${err}`));
 }
 
+
+
 const notesBtn=document.getElementById("notes-btn");
 if(notesBtn)notesBtn.addEventListener('click',getNotes);
+let user=getCurrentUser();
+
+if(user && noteform) getNotes();
+
 
  function getNotes(){
-     fetch("http://localhost:3000/notes/")
-     .then((res)=>res.json())
+    let user = getCurrentUser();
+     fetchData("/notes/", user,"post")
      .then((data)=>{
          let ul=document.getElementById("allNotes");
 
          data.forEach((note)=>{
              let li=document.createElement('li');
-             let text=document.createTextNode(note.notecontent);
+             let text=document.createTextNode(note.note);
              li.appendChild(text);
              ul.appendChild(li);
 
          })
-
-
      })
      .catch((err)=>console.log(`Error! ${err}`));
+
+     window.location.href="note.html";
  }
 
- async function fetchData(route = '', data = {}, methodType) {
-    const response = await fetch(`http://localhost:3000${route}`, {
-      method: methodType, // *GET, POST, PUT, DELETE, etc.
-      mode: 'cors', // no-cors, *cors, same-origin
-      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: 'same-origin', // include, *same-origin, omit
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      redirect: 'follow', // manual, *follow, error
-      referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify(data) // body data type must match "Content-Type" header
-    });
-    if(response.ok) {
-      return await response.json(); // parses JSON response into native JavaScript objects
-    } else {
-      throw await response.json();
-    }
-  }
-
-  class User{
-    constructor(userName, password, fullName) {
-        this.userName = userName;
-        this.password = password;
-        this.fullName = fullName;
-      }
-    
-      getUsername() {
-        return this.userName;
-      }
-  }
-
-  class Note{
-
-    constructor(text){
-        this.note=text;
-    }
-}
+ 

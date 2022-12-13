@@ -4,11 +4,12 @@ body{
     background-size: cover;
     margin:0px; 
 }
-#nav_bar{
+nav{
     background-color: rgba(134, 138, 236, 0.551);
     padding: 30px;
     text-align:center;
 }
+
 
 .r_form h2,.structure {
 
@@ -88,7 +89,7 @@ a{
     border-radius:50px;
 
 }
-#nav_bar a:hover{
+nav a:hover{
 
     background-color:brown;
     border-radius:50px;

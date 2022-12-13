@@ -24,6 +24,8 @@ async function getAllUsers() {
 async function register(user){
 
     let cUser=await getUser(user);
+    //console.log("register"+cUser);
+    if(cUser.length>0) throw Error("Username already in use");
 
 
     const sql=`INSERT INTO users(userName,password) VALUES ("${user.userName}","${user.password}");`
@@ -33,8 +35,9 @@ async function register(user){
     return await login(user);
 }
 
-async function login(user){                // rename cathy as user
+async function login(user){                
     let cUser=await getUser(user);
+    //console.log(cUser[0]);
 
     if(!cUser[0]) throw Error("Username not found");
     if(cUser[0].password !== user.password) throw Error("password doesn't match");
@@ -61,6 +64,7 @@ async function deleteUser(user){
 
 async function getUser(user){
     let sql;
+    //console.log("printing passed values to check if user exists"+user);
 
     if(user.userID){
         sql=`select * from users where userID=${user.userID}`;
@@ -73,35 +77,12 @@ async function getUser(user){
     return await con.query(sql);
 }
 
-const users =[
-    {
-        userId:1,
-        userName:"vamsi",
-        password:"admin@"
-    },
-    {
-        userId:2,
-        userName:"krishna",
-        password:"ss"
-    },
-    {
-        userId:3,
-        userName:"gunda",
-        password:"fds"
-    },
-];
+
 
 function getUsers(){
     return users;
 }
 
 
-// just to test the functions
 
-// let cathy={
-//     userName:"cat",
-//     password:"123"
-
-// };
-
-module.exports={getAllUsers,login,register,editUser,deleteUser,};
+module.exports={getAllUsers,login,register,editUser,deleteUser};
