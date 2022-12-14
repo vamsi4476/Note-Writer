@@ -1,4 +1,4 @@
-import { fetchData, setCurrentUser, setCurrentNote,getCurrentUser, getCurrentNote, } from "./fetch.js";
+import { fetchData, setCurrentUser, setCurrentNote,getCurrentUser, getCurrentNote } from "./fetch.js";
 class User{
 
     constructor(username,password){
@@ -177,12 +177,13 @@ function create_n(e){
   .then((data) => {
     //setCurrentUser(data);
     console.log(data);
-    //window.location.href = "note.html";
+   
   })
   .catch((err) =>{
     let p = document.querySelector('.error');
     p.innerHTML = err.message;
   })
+  window.location.reload();
 }
 //////////////////////////////
 const usersBtn=document.getElementById("users-btn");
