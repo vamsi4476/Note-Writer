@@ -1,4 +1,4 @@
-# WEB PROJECT
+# Note-Writer
 
 This project is a web application that has 3 pages which are login,register and note.
 
